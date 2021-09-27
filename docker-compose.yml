@@ -1,0 +1,10 @@
+version: '3.7'
+servise:
+  db:
+    image: postgres:13.4
+    networks:
+      - whereze
+    env_file: .env
+
+  networks:
+    whereze:
