@@ -20,3 +20,5 @@ def new_waterfall(title, description, height, size):
     new_dict['height'] = height
     new_dict['size'] = size
     waterfalls.append(new_dict)
+
+#Уже не актуально, но пусть будет
