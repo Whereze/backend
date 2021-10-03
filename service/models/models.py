@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from service.models.db import Base, engine
+from db import Base, engine
 
 class waterfall(Base):
     __tablename__ = 'waterfalls'
@@ -15,4 +15,4 @@ class waterfall(Base):
         return f'Waterfall {self.uid}, {self.title}'
 
 if __name__ == '__main__':
-    Base.metadata.create_all(bing=engine)
+    Base.metadata.create_all(engine)
