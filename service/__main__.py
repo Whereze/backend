@@ -20,6 +20,12 @@ def post_waterfalls():
 def get_uid_waterfalls(uid):
     return jsonify(waterfalls[uid])
 
+@app.route("/api/v1/waterfalls/<int:uid>/", methods = ['PUT'])
+def put_waterfalls(uid):
+    changes = request.json
+    waterfalls[uid].update(changes)
+    return jsonify(waterfalls[uid])
+
 #TEST POST
 #curl -X POST -H 'Content-Type: application/json' \ -d '{"title":"Рейнский водопад", "description": "Рейнский водопад считается самым большим равнинным водопадом в Европе"}' http://localhost:5000/
 if __name__ == '__main__':
