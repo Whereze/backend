@@ -5,7 +5,15 @@
             "name": "Python: Модуль",
             "type": "python",
             "request": "launch",
-            "module": "service.models.db"
+            "module": "service.models.models",
+            "console": "internalConsole"
+        },
+        {
+            "name": "Python: Модуль",
+            "type": "python",
+            "request": "launch",
+            "module": "service",
+            "console": "internalConsole"
         }
     ]
 }
