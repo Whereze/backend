@@ -2,14 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Модуль",
+            "name": "sqlalchemy: db, models",
             "type": "python",
             "request": "launch",
             "module": "service.models.models",
             "console": "internalConsole"
         },
         {
-            "name": "Python: Модуль",
+            "name": "Python: service",
             "type": "python",
             "request": "launch",
             "module": "service",
