@@ -4,9 +4,16 @@ waterfalls = [{
     "description": "Самый большой водопад в мире, располагающийся на границе США и Канады",
     "height": 120, # высота в метрах
     "size": 2000 # ширина в метрах
-}]
+},{
+    "uid": 2,
+    "title": "Виктория",
+    "description": "Единственный водопад в мире, одновременно имеющий более 100 метров в высоту и более километра в ширину",
+    "height": 120, # высота в метрах
+    "size": 1800 # ширина в метрах
+}
+]
 
-def take_uid_waterfall(uid):   
+def take_uid_waterfall(uid):
     for waterfall in waterfalls:
         uid_waterlall = waterfall['uid']
         if uid == uid_waterlall:
