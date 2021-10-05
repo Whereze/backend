@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from db import Base, engine
+from service.models.db import Base, engine
 
 class waterfall(Base):
     __tablename__ = 'waterfalls'
