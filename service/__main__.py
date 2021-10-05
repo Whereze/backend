@@ -32,5 +32,6 @@ def put_waterfalls(uid):
     waterfalls[uid].update(changes)
     return jsonify(waterfalls[uid])
 
+
 if __name__ == '__main__':
     app.run(debug=True)
