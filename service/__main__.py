@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import re
 
 from service.functional.handles import new_waterfall, waterfalls #Загружаю список водопадов
 
@@ -25,6 +26,11 @@ def put_waterfalls(uid):
     changes = request.json
     waterfalls[uid].update(changes)
     return jsonify(waterfalls[uid])
+
+@app.route("/api/v1/waterfalls/<string:key>/<string:text>/", methods = ['GET'])
+def get_name_waterfalls(key,text):
+    waterfall = list(filter(lambda waterfall: re.findall(text,waterfall[key], re.IGNORECASE), waterfalls))
+    return jsonify(waterfall)
 
 #TEST POST
 #curl -X POST -H 'Content-Type: application/json' \ -d '{"title":"Рейнский водопад", "description": "Рейнский водопад считается самым большим равнинным водопадом в Европе"}' http://localhost:5000/
