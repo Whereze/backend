@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 
 from service.models.db import Base, engine
 
+
 class waterfall(Base):
     __tablename__ = 'waterfalls'
 
@@ -13,6 +14,7 @@ class waterfall(Base):
 
     def __repr__(self):
         return f'Waterfall {self.uid}, {self.title}'
+
 
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
