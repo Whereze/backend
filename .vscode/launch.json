@@ -2,14 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "sqlalchemy: db, models",
+            "name": "db.migrate",
             "type": "python",
             "request": "launch",
             "module": "service.models.models",
             "console": "internalConsole"
         },
         {
-            "name": "Python: service",
+            "name": "service",
             "type": "python",
             "request": "launch",
             "module": "service",
