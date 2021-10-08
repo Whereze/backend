@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, abort
+from pydantic import ValidationError
 import re
 
 from service.functional.handles import waterfalls
@@ -13,6 +14,10 @@ client = app.test_client()
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
+@app.errorhandler(400)
+def internal_server_error(e):
+    return jsonify(error=str(e)), 400
+
 @app.route("/api/v1/waterfalls/", methods=['GET'])
 def get_waterfalls():
     try:
@@ -22,7 +27,6 @@ def get_waterfalls():
             return 'No waterfalls yet'
     except(ValueError, TypeError):
         return 'Change your request'
-
 
 @app.route("/api/v1/waterfalls/", methods=['POST'])
 def post_waterfalls():
