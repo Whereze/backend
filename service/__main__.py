@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from pydantic import ValidationError
 import re
 
@@ -43,7 +43,7 @@ def post_waterfalls():
         waterfalls.append(new_waterfall)
         return jsonify(new_waterfall)
     except(ValueError, TypeError, ValidationError):
-        return 'Change your request'
+        return abort(400)
 
 
 @app.route("/api/v1/waterfalls/<int:uid>/", methods=['GET'])
@@ -62,10 +62,9 @@ def get_uid_waterfalls(uid):
 def put_waterfalls(uid):
     try:
         changes = request.json
-        Waterfall(**changes)
         waterfalls[uid].update(changes)
         return jsonify(waterfalls[uid])
-    except(KeyError, ValueError, TypeError, IndexError, ValidationError):
+    except(KeyError, ValueError, TypeError, IndexError):
         return 'Change your request'
 
 
