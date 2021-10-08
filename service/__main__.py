@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
+from pydantic import ValidationError
 import re
 
 from service.functional.handles import waterfalls
+from service.tools.validator import Waterfall
 
 app = Flask(__name__)
 
@@ -37,9 +39,10 @@ def get_waterfalls():
 def post_waterfalls():
     try:
         new_waterfall = request.json
+        Waterfall(**new_waterfall)
         waterfalls.append(new_waterfall)
         return jsonify(new_waterfall)
-    except(ValueError, TypeError):
+    except(ValueError, TypeError, ValidationError):
         return 'Change your request'
 
 
@@ -59,9 +62,10 @@ def get_uid_waterfalls(uid):
 def put_waterfalls(uid):
     try:
         changes = request.json
+        Waterfall(**changes)
         waterfalls[uid].update(changes)
         return jsonify(waterfalls[uid])
-    except(KeyError, ValueError, TypeError, IndexError):
+    except(KeyError, ValueError, TypeError, IndexError, ValidationError):
         return 'Change your request'
 
 
