@@ -4,6 +4,7 @@ import re
 
 from service.functional.handles import waterfalls
 from service.tools.validator import Waterfall
+from service.models.db_add_method import save_waterfall_data
 
 app = Flask(__name__)
 
@@ -16,6 +17,14 @@ def page_not_found(e):
     return jsonify({
         'errorCode': 404,
         'message': "Woops, that page doesn't exist!",
+    })
+
+
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify({
+       'errorCode': 400,
+       'massahe': "The server was unable to process the request"
     })
 
 
@@ -40,10 +49,10 @@ def post_waterfalls():
     try:
         new_waterfall = request.json
         Waterfall(**new_waterfall)
-        waterfalls.append(new_waterfall)
+        save_waterfall_data(new_waterfall)
         return jsonify(new_waterfall)
     except(ValueError, TypeError, ValidationError):
-        return abort(400)
+        abort(400)
 
 
 @app.route("/api/v1/waterfalls/<int:uid>/", methods=['GET'])
