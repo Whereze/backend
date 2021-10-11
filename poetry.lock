@@ -337,6 +337,22 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "ipython-sql"
+version = "0.4.0"
+description = "RDBMS access via IPython"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+ipython = ">=1.0"
+ipython-genutils = ">=0.1.0"
+prettytable = "<1"
+six = "*"
+sqlalchemy = ">=0.6.7"
+sqlparse = "*"
+
+[[package]]
 name = "ipywidgets"
 version = "7.6.5"
 description = "IPython HTML widgets for Jupyter"
@@ -758,6 +774,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "prettytable"
+version = "0.7.2"
+description = "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "prometheus-client"
 version = "0.11.0"
 description = "Python client for the Prometheus monitoring system."
@@ -1051,7 +1075,7 @@ sqlcipher = ["sqlcipher3-binary"]
 name = "sqlparse"
 version = "0.4.2"
 description = "A non-validating SQL parser."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -1185,7 +1209,7 @@ notebook = ">=4.4.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "51a81221e2e06ff747b0a85252d7afe6f591e76db891d67262783a1eaa489475"
+content-hash = "e5cb57126c3652513ae38740c85b12e2b0ac3db719da59e7845a901bf5b52748"
 
 [metadata.files]
 anyio = [
@@ -1414,6 +1438,11 @@ ipython-genutils = [
     {file = "ipython_genutils-0.2.0-py2.py3-none-any.whl", hash = "sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8"},
     {file = "ipython_genutils-0.2.0.tar.gz", hash = "sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"},
 ]
+ipython-sql = [
+    {file = "ipython-sql-0.4.0.tar.gz", hash = "sha256:3e888e59bf57277cbd6f383cb232858b2d7c71219e5749257128f16d9857e46c"},
+    {file = "ipython_sql-0.4.0-py3-none-any.whl", hash = "sha256:7f93dbde77417af6647543558f7c71a90007e68d1c646868e74f4482415000c7"},
+    {file = "ipython_sql-0.4.0-py3.8.egg", hash = "sha256:57b5be9f27809cdcc9c20e1077e0a5c5a9d7e4ae6328cbb83b8bede160b819e9"},
+]
 ipywidgets = [
     {file = "ipywidgets-7.6.5-py2.py3-none-any.whl", hash = "sha256:d258f582f915c62ea91023299603be095de19afb5ee271698f88327b9fe9bf43"},
     {file = "ipywidgets-7.6.5.tar.gz", hash = "sha256:00974f7cb4d5f8d494c19810fedb9fa9b64bffd3cda7c2be23c133a1ad3c99c5"},
@@ -1626,6 +1655,11 @@ pgspecial = [
 pickleshare = [
     {file = "pickleshare-0.7.5-py2.py3-none-any.whl", hash = "sha256:9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56"},
     {file = "pickleshare-0.7.5.tar.gz", hash = "sha256:87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca"},
+]
+prettytable = [
+    {file = "prettytable-0.7.2.tar.bz2", hash = "sha256:853c116513625c738dc3ce1aee148b5b5757a86727e67eff6502c7ca59d43c36"},
+    {file = "prettytable-0.7.2.tar.gz", hash = "sha256:2d5460dc9db74a32bcc8f9f67de68b2c4f4d2f01fa3bd518764c69156d9cacd9"},
+    {file = "prettytable-0.7.2.zip", hash = "sha256:a53da3b43d7a5c229b5e3ca2892ef982c46b7923b51e98f0db49956531211c4f"},
 ]
 prometheus-client = [
     {file = "prometheus_client-0.11.0-py2.py3-none-any.whl", hash = "sha256:b014bc76815eb1399da8ce5fc84b7717a3e63652b0c0f8804092c9363acab1b2"},
