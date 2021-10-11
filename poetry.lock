@@ -1,6 +1,6 @@
 [[package]]
 name = "anyio"
-version = "3.3.2"
+version = "3.3.3"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
 category = "main"
 optional = false
@@ -17,7 +17,7 @@ trio = ["trio (>=0.16)"]
 
 [[package]]
 name = "certifi"
-version = "2021.5.30"
+version = "2021.10.8"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
@@ -52,7 +52,7 @@ styles = ["Pygments (>=1.6)"]
 
 [[package]]
 name = "click"
-version = "8.0.1"
+version = "8.0.3"
 description = "Composable command line interface toolkit"
 category = "main"
 optional = false
@@ -326,13 +326,6 @@ typing-extensions = ">=3.7.4.3"
 dotenv = ["python-dotenv (>=0.10.4)"]
 email = ["email-validator (>=1.0.3)"]
 
-[package.dependencies]
-python-stdnum = ">=1.16"
-
-[package.extras]
-dev = ["flake8"]
-test = ["pytest", "pydantic"]
-
 [[package]]
 name = "pyflakes"
 version = "2.3.1"
@@ -359,19 +352,6 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
 [package.dependencies]
 six = ">=1.5"
-
-[[package]]
-name = "python-stdnum"
-version = "1.17"
-description = "Python module to handle standardized numbers and codes"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.extras]
-soap = ["zeep"]
-soap-alt = ["suds"]
-soap-fallback = ["pysimplesoap"]
 
 [[package]]
 name = "pytzdata"
@@ -545,16 +525,16 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "20919b1aa896b044466ca20600ae16c324984b3c72decbac34eef05db16f2af9"
+content-hash = "1cbd977c6cac68f94df06b0fbb37e5508b9ddc88f3dfac70f356a57f734d9e91"
 
 [metadata.files]
 anyio = [
-    {file = "anyio-3.3.2-py3-none-any.whl", hash = "sha256:c32da314c510b34a862f5afeaf8a446ffed2c2fde21583e654bd71ecfb5b744b"},
-    {file = "anyio-3.3.2.tar.gz", hash = "sha256:0b993a2ef6c1dc456815c2b5ca2819f382f20af98087cc2090a4afed3a501436"},
+    {file = "anyio-3.3.3-py3-none-any.whl", hash = "sha256:56ceaeed2877723578b1341f4f68c29081db189cfb40a97d1922b9513f6d7db6"},
+    {file = "anyio-3.3.3.tar.gz", hash = "sha256:8eccec339cb4a856c94a75d50fc1d451faf32a05ef406be462e2efc59c9838b0"},
 ]
 certifi = [
-    {file = "certifi-2021.5.30-py2.py3-none-any.whl", hash = "sha256:50b1e4f8446b06f41be7dd6338db18e0990601dce795c2b1686458aa7e8fa7d8"},
-    {file = "certifi-2021.5.30.tar.gz", hash = "sha256:2bbf76fd432960138b3ef6dda3dde0544f27cbf8546c458e60baf371917ba9ee"},
+    {file = "certifi-2021.10.8-py2.py3-none-any.whl", hash = "sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569"},
+    {file = "certifi-2021.10.8.tar.gz", hash = "sha256:78884e7c1d4b00ce3cea67b44566851c4343c120abd683433ce934a68ea58872"},
 ]
 charset-normalizer = [
     {file = "charset-normalizer-2.0.6.tar.gz", hash = "sha256:5ec46d183433dcbd0ab716f2d7f29d8dee50505b3fdb40c6b985c7c4f5a3591f"},
@@ -565,8 +545,8 @@ cli-helpers = [
     {file = "cli_helpers-2.2.0.tar.gz", hash = "sha256:733f65d8c921e0cffa8f7ae4c8735bd7ecdffec383c5246f647ddd0fddb33448"},
 ]
 click = [
-    {file = "click-8.0.1-py3-none-any.whl", hash = "sha256:fba402a4a47334742d782209a7c79bc448911afe1149d07bdabdf480b3e2f4b6"},
-    {file = "click-8.0.1.tar.gz", hash = "sha256:8c04c11192119b1ef78ea049e0a6f0463e4c48ef00a30160c704337586f3ad7a"},
+    {file = "click-8.0.3-py3-none-any.whl", hash = "sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3"},
+    {file = "click-8.0.3.tar.gz", hash = "sha256:410e932b050f5eed773c4cda94de75971c89cdb3155a72a0831139a79e5ecb5b"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
@@ -822,10 +802,6 @@ pydantic = [
     {file = "pydantic-1.8.2-py3-none-any.whl", hash = "sha256:fec866a0b59f372b7e776f2d7308511784dace622e0992a0b59ea3ccee0ae833"},
     {file = "pydantic-1.8.2.tar.gz", hash = "sha256:26464e57ccaafe72b7ad156fdaa4e9b9ef051f69e175dbbb463283000c05ab7b"},
 ]
-pydentic = [
-    {file = "pydentic-0.0.1.dev3-py3-none-any.whl", hash = "sha256:b37f690f262e02e781deae8588a411c596489bc2837701fbb5e8c59b31b4236e"},
-    {file = "pydentic-0.0.1.dev3.tar.gz", hash = "sha256:4c5ee9c260e3cbcdb2a2d725b1d98046cb2b5298e6d6154449a685cf4cca85ec"},
-]
 pyflakes = [
     {file = "pyflakes-2.3.1-py2.py3-none-any.whl", hash = "sha256:7893783d01b8a89811dd72d7dfd4d84ff098e5eed95cfa8905b22bbffe52efc3"},
     {file = "pyflakes-2.3.1.tar.gz", hash = "sha256:f5bc8ecabc05bb9d291eb5203d6810b49040f6ff446a756326104746cc00c1db"},
@@ -837,10 +813,6 @@ pygments = [
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
-]
-python-stdnum = [
-    {file = "python-stdnum-1.17.tar.gz", hash = "sha256:374e2b5e13912ccdbf50b0b23fca2c3e0531174805c32d74e145f37756328340"},
-    {file = "python_stdnum-1.17-py2.py3-none-any.whl", hash = "sha256:a46e6cf9652807314d369b654b255c86a59f93d18be2834f3d567ed1a346c547"},
 ]
 pytzdata = [
     {file = "pytzdata-2020.1-py2.py3-none-any.whl", hash = "sha256:e1e14750bcf95016381e4d472bad004eef710f2d6417240904070b3d6654485f"},
