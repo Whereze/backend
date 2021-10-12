@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request, abort
 from pydantic import ValidationError
 import re
+
 from service.functional.handles import waterfalls
+from service.models.db_add_method import save_waterfall_data
 from service.serializers import Waterfall
+
 
 app = Flask(__name__)
 
@@ -15,6 +18,14 @@ def resource_not_found(e):
 
 
 @app.errorhandler(400)
+def bad_request(e):
+    return jsonify({
+       'errorCode': 400,
+       'massahe': "The server was unable to process the request"
+    })
+
+
+@app.errorhandler(500)
 def internal_server_error(e):
     return jsonify(error=str(e)), 400
 
@@ -34,10 +45,11 @@ def get_waterfalls():
 def post_waterfalls():
     try:
         new_waterfall = request.json
-        waterfalls.append(new_waterfall)
+        Waterfall(**new_waterfall)
+        save_waterfall_data(new_waterfall)
         return jsonify(new_waterfall)
-    except(ValueError, TypeError):
-        return 'Change your request'
+    except(ValueError, TypeError, ValidationError):
+        abort(400)
 
 
 @app.route("/api/v1/waterfalls/<int:uid>/", methods=['GET'])

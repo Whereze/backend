@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "db.migrate",
             "type": "python",
@@ -14,6 +15,13 @@
             "request": "launch",
             "module": "service",
             "console": "internalConsole"
+        },
+        {
+          "name": "db_add_method",
+          "type": "python",
+          "request": "launch",
+          "module": "service.models.db_add_method",
+          "console": "internalConsole"
         }
     ]
 }
