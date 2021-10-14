@@ -1,8 +1,9 @@
 from service.models.db import db_session
-from service.models.models import Waterfall
+from service.models.models import Waterfall_details
 
 
-def save_waterfall_data(waterfall):
-    content = Waterfall(**waterfall)
+def add_data_in_db(waterfall):
+    content = Waterfall_details(**waterfall)
+    print(content)
     db_session.add(content)
     db_session.commit()
