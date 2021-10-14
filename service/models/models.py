@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String
 from service.models.db import Base, engine
 
 
-class Waterfall_details(Base):
+class WaterfallModel(Base):
     __tablename__ = 'waterfalls_details'
 
     uid = Column(Integer, primary_key=True)
