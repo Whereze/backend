@@ -3,20 +3,7 @@ from sqlalchemy import Column, Integer, String
 from service.models.db import Base, engine
 
 
-class Waterfall(Base):
-    __tablename__ = 'waterfalls'
-
-    uid = Column(Integer, primary_key=True)
-    title = Column(String())
-    description = Column(String())
-    height = Column(Integer())
-    size = Column(Integer())
-
-    def __repr__(self):
-        return f'Waterfall {self.uid}, {self.title}'
-
-
-class waterfall_details(Base):
+class Waterfall_details(Base):
     __tablename__ = 'waterfalls_details'
 
     uid = Column(Integer, primary_key=True)
