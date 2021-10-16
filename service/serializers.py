@@ -1,12 +1,16 @@
 from pydantic.main import BaseModel
 
 
-class Waterfall(BaseModel):
+class WaterfallModel(BaseModel):
     uid: int
     title: str
-    description: str
-    height: int
-    size: int
+    summary: str
+    height: str
+    width: str
+    river: str
+    country: str
+    region: str
+    RF_subject: str
 
     def __repr__(self) -> str:
-        return f"Waterfall({self.uid}{self.title})"
+        return f"WaterfallModel({self.uid}{self.title})"
