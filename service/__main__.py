@@ -1,11 +1,18 @@
 from flask import Flask, jsonify, request, abort
 from pydantic import ValidationError
+import logging
 import re
+import orjson
+
 
 from service.functional.handles import waterfalls
 from service.models.db_add_method import save_waterfall_data
 from service.serializers import Waterfall
+from service.models.models import waterfall_details
+from service.models.db import db_session
+from sqlalchemy import or_
 
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -27,18 +34,41 @@ def bad_request(e):
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return jsonify(error=str(e)), 400
+    return jsonify(error=str(e)), 500
 
 
 @app.route("/api/v1/waterfalls/", methods=['GET'])
 def get_waterfalls():
-    try:
-        if waterfalls:
-            return jsonify(waterfalls)
-        else:
-            return 'No waterfalls yet'
-    except(ValueError, TypeError):
-        return 'Change your request'
+    query = request.args.get('q', None)
+    logger.debug(query)
+    waterfalls = waterfall_details.query.filter(
+        or_(
+            waterfall_details.title.ilike(f'%{query}%'),
+            waterfall_details.summary.ilike(f'%{query}%'),
+            waterfall_details.summary.ilike(f'%{query}%'),
+            waterfall_details.summary.ilike(f'%{query}%'),
+            waterfall_details.summary.ilike(f'%{query}%'),
+            waterfall_details.summary.ilike(f'%{query}%')
+    )
+    return jsonify([
+        Waterfall(
+            uid=waterfall.uid,
+            title=waterfall.title,
+            description=waterfall.summary,
+            height=waterfall.height,
+            size=waterfall.width,
+        ).dict()
+        for waterfall in waterfalls
+    ])
+
+    # waterfalls = waterfall_details.query.filter(
+    #     or_(
+    #         waterfall_details.title.ilike("%Абай-Су%"),
+    #         waterfall_details.uid > 5000
+    #         # ,
+    #         # waterfall_details.title == "Абай-Су")
+    #     )
+
 
 
 @app.route("/api/v1/waterfalls/", methods=['POST'])
@@ -74,18 +104,19 @@ def put_waterfalls(uid):
         abort(400, str(e))
 
 
-@app.route("/api/v1/waterfalls/<string:key>/<string:text>/", methods=['GET'])
-def get_name_waterfalls(key, text):
-    try:
-        found_waterfalls = [
-            waterfall for waterfall in waterfalls
-            if re.findall(text, waterfall[key], re.IGNORECASE)
-        ]
-        return jsonify(found_waterfalls)
+# @app.route("/api/v1/waterfalls/<>/", methods=['GET'])
+# def get_name_waterfalls(key, text):
+#     try:
+#         found_waterfalls = [
+#             waterfall for waterfall in waterfalls
+#             if re.findall(text, waterfall[key], re.IGNORECASE)
+#         ]
+#         return jsonify(found_waterfalls)
 
-    except(KeyError, ValueError, TypeError):
-        return 'Change key or value and try again'
+#     except(KeyError, ValueError, TypeError):
+#         return 'Change key or value and try again'
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
     app.run()

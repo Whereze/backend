@@ -5,20 +5,9 @@ from service.models.db import Base, engine
 
 class Waterfall(Base):
     __tablename__ = 'waterfalls'
-
-    uid = Column(Integer, primary_key=True)
-    title = Column(String())
-    description = Column(String())
-    height = Column(Integer())
-    size = Column(Integer())
-
-    def __repr__(self):
-        return f'Waterfall {self.uid}, {self.title}'
-
-
-class waterfall_details(Base):
-    __tablename__ = 'waterfalls_details'
-
+    __table_args__ = (
+            UniqueConstraint('title', 'summary', name='unique_component'),
+        )
     uid = Column(Integer, primary_key=True)
     title = Column(String())
     url = Column(String())
@@ -31,7 +20,7 @@ class waterfall_details(Base):
     RF_subject = Column(String())
 
     def __repr__(self):
-        return f'Waterfall_Details {self.uid}, {self.title}'
+        return f'Waterfall{self.uid}, {self.title}'
 
 
 if __name__ == '__main__':
