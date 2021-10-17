@@ -1,15 +1,16 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, make_response
 from pydantic import ValidationError
-import re
+import logging
+from service.serializers import WaterfallModel
+from service.waterfalls import WaterfallRepo
 
-from service.functional.handles import waterfalls
-from service.models.db_add_method import save_waterfall_data
-from service.serializers import Waterfall
-
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
 client = app.test_client()
+
+repo = WaterfallRepo()
 
 
 @app.errorhandler(404)
@@ -27,65 +28,94 @@ def bad_request(e):
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return jsonify(error=str(e)), 400
+    return jsonify(error=str(e)), 500
 
 
 @app.route("/api/v1/waterfalls/", methods=['GET'])
 def get_waterfalls():
     try:
-        if waterfalls:
-            return jsonify(waterfalls)
-        else:
-            return 'No waterfalls yet'
-    except(ValueError, TypeError):
-        return 'Change your request'
+        title = request.args.get('title', None)
+        detail = request.args.get('detail', None)
+        waterfalls = repo.get(title, detail)
+        return jsonify([
+            WaterfallModel(
+                    uid=waterfall.uid,
+                    title=waterfall.title,
+                    summary=waterfall.summary,
+                    height=waterfall.height,
+                    width=waterfall.width,
+                    river=waterfall.river,
+                    country=waterfall.country,
+                    region=waterfall.region,
+                    RF_subject=waterfall.RF_subject,
+            ).dict()
+            for waterfall in waterfalls
+        ])
+    except ValidationError as e:
+        abort(400, str(e))
 
 
 @app.route("/api/v1/waterfalls/", methods=['POST'])
 def post_waterfalls():
     try:
         new_waterfall = request.json
-        Waterfall(**new_waterfall)
-        save_waterfall_data(new_waterfall)
-        return jsonify(new_waterfall)
+        WaterfallModel(**new_waterfall)
+        new_waterfall = repo.add(
+                                title=new_waterfall['title'],
+                                summary=new_waterfall['summary'],
+                                height=new_waterfall['height'],
+                                width=new_waterfall['width'],
+                                river=new_waterfall['river'],
+                                country=new_waterfall['country'],
+                                region=new_waterfall['region'],
+                                RF_subject=new_waterfall['RF_subject']
+                                )
+        return jsonify(new_waterfall.title, new_waterfall.summary)
     except(ValueError, TypeError, ValidationError):
         abort(400)
 
 
-@app.route("/api/v1/waterfalls/<int:uid>/", methods=['GET'])
-def get_uid_waterfalls(uid):
+@app.route("/api/v1/waterfalls/", methods=['PUT'])
+def put_waterfalls():
     try:
-        waterfall = waterfalls[uid]
-        if waterfall is None:
-            abort(404, description="Resource not found")
-        return jsonify(waterfalls[uid])
-    except(KeyError, ValueError, TypeError, IndexError):
-        return 'Change your request'
-
-
-@app.route("/api/v1/waterfalls/<int:uid>/", methods=['PUT'])
-def put_waterfalls(uid):
-    try:
+        waterfall_id = request.args.get('q', None)
         changes = request.json
-        changes = Waterfall(**changes)
-        waterfalls[uid].update(changes)
-        return jsonify(waterfalls[uid])
+        WaterfallModel(**changes)
+        if not repo.check_by_id(waterfall_id):
+            abort(make_response(jsonify(
+                f"Waterfall with id {waterfall_id} doesn\'t exist."), 400))
+        else:
+            waterfall = repo.update(
+                                    waterfall_id=waterfall_id,
+                                    uid=changes['uid'],
+                                    title=changes['title'],
+                                    summary=changes['summary'],
+                                    height=changes['height'],
+                                    width=changes['width'],
+                                    river=changes['river'],
+                                    country=changes['country'],
+                                    region=changes['region'],
+                                    RF_subject=changes['RF_subject']
+                            )
+
+        return jsonify(waterfall.title, waterfall.summary)
     except ValidationError as e:
         abort(400, str(e))
 
 
-@app.route("/api/v1/waterfalls/<string:key>/<string:text>/", methods=['GET'])
-def get_name_waterfalls(key, text):
+@app.route("/api/v1/waterfalls/", methods=['DELETE'])
+def delete_waterfalls():
     try:
-        found_waterfalls = [
-            waterfall for waterfall in waterfalls
-            if re.findall(text, waterfall[key], re.IGNORECASE)
-        ]
-        return jsonify(found_waterfalls)
-
-    except(KeyError, ValueError, TypeError):
-        return 'Change key or value and try again'
+        waterfall_id = request.args.get('q', None)
+        if not repo.check_by_id(waterfall_id):
+            abort(make_response(jsonify(
+                f"Waterfall with id {waterfall_id} doesn\'t exist."), 400))
+        repo.delete(waterfall_id)
+        return jsonify('Deleted')
+    except ValidationError as e:
+        abort(400, str(e))
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
     app.run()
