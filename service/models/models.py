@@ -18,7 +18,7 @@ class Waterfall(Base):
     RF_subject = Column(String())
 
     def __repr__(self):
-        return f'Waterfall{self.uid}, {self.title}'
+        return f'Waterfall {self.uid}, {self.title}'
 
 
 if __name__ == '__main__':
