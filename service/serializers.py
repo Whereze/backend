@@ -1,8 +1,9 @@
 from pydantic.main import BaseModel
+from typing import Optional
 
 
 class WaterfallModel(BaseModel):
-    uid: int
+    uid: Optional[int]
     title: str
     summary: str
     height: str
