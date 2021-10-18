@@ -75,19 +75,17 @@ def post_waterfalls():
         abort(400)
 
 
-@app.route("/api/v1/waterfalls/", methods=['PUT'])
-def put_waterfalls():
+@app.route("/api/v1/waterfalls/<int:uid>/", methods=['PUT'])
+def put_waterfalls(uid):
     try:
-        waterfall_id = request.args.get('q', None)
         changes = request.json
         WaterfallModel(**changes)
-        if not repo.check_by_id(waterfall_id):
+        if not repo.check_by_id(uid):
             abort(make_response(jsonify(
-                f"Waterfall with id {waterfall_id} doesn\'t exist."), 400))
+                f"Waterfall with id {uid} doesn\'t exist."), 400))
         else:
             waterfall = repo.update(
-                                    waterfall_id=waterfall_id,
-                                    uid=changes['uid'],
+                                    uid=uid,
                                     title=changes['title'],
                                     summary=changes['summary'],
                                     height=changes['height'],
@@ -103,15 +101,14 @@ def put_waterfalls():
         abort(400, str(e))
 
 
-@app.route("/api/v1/waterfalls/", methods=['DELETE'])
-def delete_waterfalls():
+@app.route("/api/v1/waterfalls/<int:uid>/", methods=['DELETE'])
+def delete_waterfalls(uid):
     try:
-        waterfall_id = request.args.get('q', None)
-        if not repo.check_by_id(waterfall_id):
+        if not repo.check_by_id(uid):
             abort(make_response(jsonify(
-                f"Waterfall with id {waterfall_id} doesn\'t exist."), 400))
-        repo.delete(waterfall_id)
-        return jsonify('Deleted')
+                f"Waterfall with id {uid} doesn\'t exist."), 400))
+        repo.delete(uid)
+        return jsonify(f"Waterfall with id {uid} was deleted")
     except ValidationError as e:
         abort(400, str(e))
 
