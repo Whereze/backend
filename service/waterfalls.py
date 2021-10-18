@@ -48,10 +48,9 @@ class WaterfallRepo:
                 self, uid: int, title: str, summary: str,
                 height: str, width: str,
                 river: str, country: str,
-                region: str, RF_subject: str,
-                waterfall_id: int) -> Waterfall:
+                region: str, RF_subject: str) -> Waterfall:
         waterfall = Waterfall.query.filter(
-                    Waterfall.uid == waterfall_id
+                    Waterfall.uid == uid
                     ).first()
         waterfall.title = title
         waterfall.summary = summary
