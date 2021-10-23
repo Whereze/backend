@@ -28,12 +28,13 @@ class WaterfallRepo:
             ).all()
         return waterfalls
 
-    def add(self, title: str, summary: str,
-            height: str, width: str,
-            river: str, country: str,
+    def add(self, title: str, url: str,
+            summary: str, height: str,
+            width: str, river: str, country: str,
             region: str, RF_subject: str) -> Waterfall:
         new_waterfall = Waterfall(
                              title=title,
+                             url=url,
                              summary=summary,
                              height=height,
                              width=width,

@@ -17,6 +17,7 @@ def add_data_from_csv(filename):
             WaterfallModel(**new_waterfall)
             new_waterfall = repo.add(
                             title=new_waterfall['title'],
+                            url=new_waterfall['url'],
                             summary=new_waterfall['summary'],
                             height=new_waterfall['height'],
                             width=new_waterfall['width'],
