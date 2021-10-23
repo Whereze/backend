@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, abort, make_response
 from pydantic import ValidationError
 import logging
+from service.models.models import Waterfall
 from service.serializers import WaterfallModel
 from service.waterfalls import WaterfallRepo
 
@@ -41,7 +42,8 @@ def get_waterfalls():
             WaterfallModel(
                     uid=waterfall.uid,
                     title=waterfall.title,
-                    summary=waterfall.summary,
+                    url=waterfall.url,
+                    # summary=waterfall.summary,
                     height=waterfall.height,
                     width=waterfall.width,
                     river=waterfall.river,

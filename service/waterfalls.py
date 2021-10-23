@@ -10,17 +10,22 @@ class WaterfallRepo:
                 Waterfall.uid == waterfall_id).count() > 0
 
     def get(self, title: str, detail: str) -> Waterfall:
-        waterfalls = Waterfall.query.filter(
-            or_(
-                Waterfall.title.ilike(f'%{title}%'),
-                Waterfall.summary.ilike(f'%{detail}%'),
-                Waterfall.height.ilike(f'%{detail}%'),
-                Waterfall.width.ilike(f'%{detail}%'),
-                Waterfall.river.ilike(f'%{detail}%'),
-                Waterfall.country.ilike(f'%{detail}%'),
-                Waterfall.region.ilike(f'%{detail}%'),
-                Waterfall.RF_subject.ilike(f'%{detail}%')),
-        ).all()
+        if not detail:
+            waterfalls = Waterfall.query.filter(
+                Waterfall.title.ilike(f'%{title}%')
+            ).all()
+        else:
+            waterfalls = Waterfall.query.filter(
+                or_(
+                    Waterfall.title.ilike(f'%{title}%'),
+                    Waterfall.summary.ilike(f'%{detail}%'),
+                    Waterfall.height.ilike(f'%{detail}%'),
+                    Waterfall.width.ilike(f'%{detail}%'),
+                    Waterfall.river.ilike(f'%{detail}%'),
+                    Waterfall.country.ilike(f'%{detail}%'),
+                    Waterfall.region.ilike(f'%{detail}%'),
+                    Waterfall.RF_subject.ilike(f'%{detail}%')),
+            ).all()
         return waterfalls
 
     def add(self, title: str, summary: str,
