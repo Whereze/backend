@@ -1,7 +1,8 @@
 import csv
+from pathlib import Path
+
 from service.serializers import WaterfallModel
 from service.waterfalls import WaterfallRepo
-
 
 repo = WaterfallRepo()
 
@@ -28,4 +29,5 @@ def add_data_from_csv(filename):
                             )
 
 
-add_data_from_csv('service\\csv_data\\waterfalls_details.csv')
+path = Path('service') / 'csv_data' / 'waterfalls_details.csv'
+add_data_from_csv(str(path))
